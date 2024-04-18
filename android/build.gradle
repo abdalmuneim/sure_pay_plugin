@@ -1,4 +1,4 @@
-group 'com.example.sure_pay'
+group 'com.example.sure_pay_plugin'
 version '1.0'
 
 buildscript {
@@ -23,7 +23,7 @@ apply plugin: 'com.android.library'
 
 android {
     if (project.android.hasProperty("namespace")) {
-        namespace 'com.example.sure_pay'
+        namespace 'com.example.sure_pay_plugin'
     }
 
     compileSdk 34

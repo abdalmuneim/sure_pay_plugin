@@ -1,4 +1,4 @@
-package com.example.sure_pay;
+package com.example.sure_pay_plugin;
 
 import androidx.annotation.NonNull;
 
@@ -18,7 +18,7 @@ public class SurePayPlugin implements FlutterPlugin, MethodCallHandler {
 
   @Override
   public void onAttachedToEngine(@NonNull FlutterPluginBinding flutterPluginBinding) {
-    channel = new MethodChannel(flutterPluginBinding.getBinaryMessenger(), "sure_pay");
+    channel = new MethodChannel(flutterPluginBinding.getBinaryMessenger(), "sure_pay_plugin");
     channel.setMethodCallHandler(this);
   }
 

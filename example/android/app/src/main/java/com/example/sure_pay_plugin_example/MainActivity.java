@@ -1,4 +1,4 @@
-package com.example.sure_pay_example;
+package com.example.sure_pay_plugin_example;
 
 import io.flutter.embedding.android.FlutterActivity;
 

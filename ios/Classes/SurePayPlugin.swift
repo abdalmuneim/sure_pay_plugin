@@ -3,7 +3,7 @@ import UIKit
 
 public class SurePayPlugin: NSObject, FlutterPlugin {
   public static func register(with registrar: FlutterPluginRegistrar) {
-    let channel = FlutterMethodChannel(name: "sure_pay", binaryMessenger: registrar.messenger())
+    let channel = FlutterMethodChannel(name: "sure_pay_plugin", binaryMessenger: registrar.messenger())
     let instance = SurePayPlugin()
     registrar.addMethodCallDelegate(instance, channel: channel)
   }

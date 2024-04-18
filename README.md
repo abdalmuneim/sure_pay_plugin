@@ -1,4 +1,4 @@
-# sure_pay
+# sure_pay_plugin
 
 A new Flutter plugin project.
 

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 
 import 'package:flutter/services.dart';
-import 'package:sure_pay/sure_pay.dart';
+import 'package:sure_pay_plugin/sure_pay_plugin.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,7 +17,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   String _platformVersion = 'Unknown';
-  final _surePayPlugin = SurePay();
+  final _surePayPlugin = SurePayPlugin();
 
   @override
   void initState() {

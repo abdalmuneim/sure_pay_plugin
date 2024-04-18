@@ -1,12 +1,12 @@
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:sure_pay/sure_pay_method_channel.dart';
+import 'package:sure_pay_plugin/sure_pay_plugin_method_channel.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  MethodChannelSurePay platform = MethodChannelSurePay();
-  const MethodChannel channel = MethodChannel('sure_pay');
+  MethodChannelSurePayPlugin platform = MethodChannelSurePayPlugin();
+  const MethodChannel channel = MethodChannel('sure_pay_plugin');
 
   setUp(() {
     TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger.setMockMethodCallHandler(

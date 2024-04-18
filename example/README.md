@@ -1,6 +1,6 @@
-# sure_pay_example
+# sure_pay_plugin_example
 
-Demonstrates how to use the sure_pay plugin.
+Demonstrates how to use the sure_pay_plugin plugin.
 
 ## Getting Started
 

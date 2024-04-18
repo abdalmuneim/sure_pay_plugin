@@ -1,4 +1,4 @@
-package com.example.sure_pay;
+package com.example.sure_pay_plugin;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;

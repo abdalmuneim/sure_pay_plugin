@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'dart:async';
 
@@ -17,7 +19,12 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   String _platformVersion = 'Unknown';
-  final _surePayPlugin = SurePayPlugin();
+  final _surePayPlugin = SurePayPlugin(
+    amount: "1",
+    callBak: (value) {
+      log(value);
+    },
+  );
 
   @override
   void initState() {
@@ -31,8 +38,8 @@ class _MyAppState extends State<MyApp> {
     // Platform messages may fail, so we use a try/catch PlatformException.
     // We also handle the message potentially returning null.
     try {
-      platformVersion =
-          await _surePayPlugin.getPlatformVersion() ?? 'Unknown platform version';
+      platformVersion = await _surePayPlugin.getPlatformVersion() ??
+          'Unknown platform version';
     } on PlatformException {
       platformVersion = 'Failed to get platform version.';
     }
@@ -55,7 +62,11 @@ class _MyAppState extends State<MyApp> {
           title: const Text('Plugin example app'),
         ),
         body: Center(
-          child: Text('Running on: $_platformVersion\n'),
+          child: Column(
+            children: [
+              Text('Running on: $_platformVersion\n'),
+            ],
+          ),
         ),
       ),
     );

@@ -3,6 +3,9 @@ version '1.0'
 
 buildscript {
     repositories {
+        flatDir {
+                dirs 'libs'
+            }
         google()
         mavenCentral()
     }
@@ -26,7 +29,7 @@ android {
         namespace 'com.example.sure_pay_plugin'
     }
 
-    compileSdk 34
+    compileSdk 33
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -34,7 +37,7 @@ android {
     }
 
     defaultConfig {
-        minSdkVersion 19
+        minSdkVersion 23
     }
 
     dependencies {
@@ -51,4 +54,16 @@ android {
             }
         }
     }
+
+}
+
+dependencies {
+
+    /////////////////
+    implementation files('libs/suresdkv3.0.0.aar')
+    implementation 'androidx.annotation:annotation:1.7.1'
+    /////////////////
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation fileTree(dir: 'libs', include: ['*.aar'])
+    implementation files('tmplibs/flutter.jar')
 }

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
 import 'sure_pay_plugin_method_channel.dart';
@@ -24,6 +25,22 @@ abstract class SurePayPluginPlatform extends PlatformInterface {
   }
 
   Future<String?> getPlatformVersion() {
+    throw UnimplementedError('platformVersion() has not been implemented.');
+  }
+
+  Future<void> initConnection() {
+    throw UnimplementedError('initConnection() has not been implemented.');
+  }
+
+  Future<void> setAmount({required String amount}) {
+    throw UnimplementedError('platformVersion() has not been implemented.');
+  }
+
+  Future<void> setEventChannel({required ValueChanged<String> callBack}) {
+    throw UnimplementedError('platformVersion() has not been implemented.');
+  }
+
+  Future<void> cancelStream() {
     throw UnimplementedError('platformVersion() has not been implemented.');
   }
 }

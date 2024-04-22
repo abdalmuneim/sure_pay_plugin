@@ -12,13 +12,13 @@ class MethodChannelSurePayPlugin extends SurePayPluginPlatform {
   @visibleForTesting
   final methodChannel = const MethodChannel('sure_pay_plugin/channel');
   final EventChannel _eventChannel =
-      const EventChannel("sure_pay_plugin/event");
+  const EventChannel("sure_pay_plugin/event");
   StreamSubscription? _streamSubscription;
 
   @override
   Future<String?> getPlatformVersion() async {
     final version =
-        await methodChannel.invokeMethod<String>('getPlatformVersion');
+    await methodChannel.invokeMethod<String>('getPlatformVersion');
     return version;
   }
 
@@ -26,8 +26,8 @@ class MethodChannelSurePayPlugin extends SurePayPluginPlatform {
   Future<void> setEventChannel({required ValueChanged<String> callBack}) async {
     _streamSubscription =
         _eventChannel.receiveBroadcastStream().listen((event) {
-      callBack(event);
-    });
+          callBack(event);
+        });
     return;
   }
 

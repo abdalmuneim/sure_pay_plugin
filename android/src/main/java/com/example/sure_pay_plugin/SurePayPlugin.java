@@ -1,9 +1,12 @@
 package com.example.sure_pay_plugin;
 
-import android.content.Context;
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Build;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.sure.poslibrary.usbIntegration.ActionsError;
 import com.sure.poslibrary.usbIntegration.SureUsb;
@@ -15,47 +18,47 @@ import java.util.HashMap;
 import java.util.Map;
 
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
+import io.flutter.embedding.engine.plugins.activity.ActivityAware;
+import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding;
 import io.flutter.plugin.common.EventChannel;
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
+import io.flutter.plugin.common.PluginRegistry;
 
 /**
  * SurePayPlugin
  */
-public class SurePayPlugin implements FlutterPlugin, MethodCallHandler {
+public class SurePayPlugin implements FlutterPlugin, MethodCallHandler, PluginRegistry.ActivityResultListener, ActivityAware {
     /// The MethodChannel that will the communication between Flutter and native Android
     ///
     /// This local reference serves to register the plugin with the Flutter Engine and unregister it
     /// when the Flutter Engine is detached from the Activity
-    private Context context;
-
-
     private MethodChannel channel;
-    private static final String CHANNELSTR = "sure_pay_plugin/channel";
-    private static final String MY_EVENT_CHANNEL_NAME = "sure_pay_plugin/event";
+    private Activity activity = null;
+    private static final String SURE_PAY_PLUGIN_CHANNEL = "sure_pay_plugin/channel";
+    private static final String SURE_PAY_PLUGIN_EVENT = "sure_pay_plugin/event";
     MyEventChannel myEventChannel = new MyEventChannel();
     Map<String, Object> data = new HashMap<>();
 
-    public SurePayPlugin() {
-        this.context = context;
-    }
-
     @Override
     public void onAttachedToEngine(@NonNull FlutterPluginBinding flutterPluginBinding) {
-        channel = new MethodChannel(flutterPluginBinding.getBinaryMessenger(), CHANNELSTR);
+        channel = new MethodChannel(flutterPluginBinding.getBinaryMessenger(), SURE_PAY_PLUGIN_CHANNEL);
         channel.setMethodCallHandler(this);
 
-        EventChannel eventChannel = new EventChannel(flutterPluginBinding.getBinaryMessenger(), MY_EVENT_CHANNEL_NAME); // timeHandlerEvent event name
+        EventChannel eventChannel = new EventChannel(flutterPluginBinding.getBinaryMessenger(), SURE_PAY_PLUGIN_EVENT); // timeHandlerEvent event name
         eventChannel.setStreamHandler(myEventChannel);
     }
 
     @Override
     public void onMethodCall(@NonNull MethodCall call, @NonNull Result result) {
         switch (call.method) {
+            case "getPlatformVersion":
+                result.success("Android "+ Build.VERSION.RELEASE);
+                break;
             case "usbConnectionInitialize":
-                SureUsb.getInstance().openConnection(context);
+                SureUsb.getInstance().openConnection(activity);
                 append("initialized", "initialized");
                 sendOtherData("");
                 result.success(data.toString());
@@ -92,6 +95,7 @@ public class SurePayPlugin implements FlutterPlugin, MethodCallHandler {
                 result.notImplemented();
                 break;
         }
+
     }
 
     @Override
@@ -109,5 +113,34 @@ public class SurePayPlugin implements FlutterPlugin, MethodCallHandler {
         Log.d("sendOtherData", "otherData is " + otherData);
         data.put("sendOtherData", otherData);
         myEventChannel.sendEvent(otherData);
+    }
+
+    @Override
+    public void onAttachedToActivity(@NonNull ActivityPluginBinding binding) {
+        activity = binding.getActivity();
+        binding.addActivityResultListener(this);
+    }
+
+    @Override
+    public void onDetachedFromActivityForConfigChanges() {
+
+    }
+
+    @Override
+    public void onReattachedToActivityForConfigChanges(@NonNull ActivityPluginBinding binding) {
+
+    }
+
+    @Override
+    public void onDetachedFromActivity() {
+
+    }
+
+    @Override
+    public boolean onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        Log.d("onActivityResult", data.getData().getUserInfo());
+        Log.d("onActivityResultRequestCode", String.valueOf(requestCode));
+        Log.d("onActivityResultResultCode", String.valueOf(resultCode));
+        return false;
     }
 }

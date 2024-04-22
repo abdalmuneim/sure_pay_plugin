@@ -11,7 +11,7 @@ class SurePayPlugin {
     _initConnection();
     Future.delayed(
       const Duration(seconds: 2),
-      () => _setAmount(),
+          () => _setAmount(),
     );
   }
 
